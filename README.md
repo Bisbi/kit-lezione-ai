@@ -65,6 +65,17 @@ sono le parti lente): conviene avviare i PC in parallelo, meglio il giorno prima
 
 ---
 
+## Skill per opencode: gestione del contesto
+
+Per governare il contesto dei progetti c'è una famiglia di tre skill collegate
+(`gestione-contesto`, `nuovo-progetto`, `handoff`) che gestiscono quattro file
+(`AGENTS.md`, `HANDOFF.md`, `TO-DO.md`, `AS-IS.md`).
+
+Per installarle su un'altra macchina, apri opencode e incolla il prompt
+**[docs/INSTALLA-skill-famiglia-contesto.md](docs/INSTALLA-skill-famiglia-contesto.md)**:
+opencode crea da solo i file delle skill nei percorsi giusti (`~/.config/opencode/skills/...`).
+Poi riavvia opencode.
+
 ## Modelli di IA gratuiti
 
 opencode si collega a un modello tramite `opencode auth login --provider <id>`
