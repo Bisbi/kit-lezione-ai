@@ -1,8 +1,19 @@
 # HANDOFF — Kit "Lezione IA" (opencode in classe)
 
-**Aggiornato:** 28 settembre 2026 (prima versione: 27/09/2026)
+**Aggiornato:** 30 settembre 2026 (prima versione: 27/09/2026)
 **Scopo:** chiavetta USB che prepara i PC dell'aula (Windows) per far usare
 **opencode** agli studenti, con VS Code e Herdr.
+
+---
+
+## Aggiornamento del 30/09
+
+- **✅ Test in aula superato:** l'intera classe ha usato la chiavetta con successo (script no-admin).
+- **Pubblicato come repo:** questo documento vive ora anche in un repo pubblico con gli script e i materiali.
+  I binari non sono nel repo: si scaricano con `setup/Scarica-Binari.ps1` dalle fonti ufficiali.
+- **Arricchimenti proposti (da fare):** progetto starter + esercizi in `progetti\`; `AGENTS.md` per far
+  rispondere opencode in italiano; paletti di sicurezza all'agente (conferma comandi, telemetria off);
+  `VERIFICA.cmd` e `RIMUOVI-Lezione-AI.cmd`; `git init` in `progetti\`.
 
 ---
 
@@ -104,8 +115,7 @@ Il 28/09 (nuova versione):
 - ✅ Estrazione Node zip: 73 s, `node v24.21.0`, `npm 11.19.0`.
 - ✅ Installazione opencode con il Node portable (npm 11): `opencode 1.18.33` funziona, il postinstall
   NON è bloccato (binario reale ~180 MB). **Ha impiegato ~6 minuti**: scarica ~180 MB per PC.
-- ❌ **NON ancora provato:** script completo su un PC d'aula con utente standard.
-  Lo prova Giovanni direttamente su un PC.
+- ✅ **30/09: test in aula superato** — l'intera classe ha usato la chiavetta con successo.
 
 ---
 
@@ -145,7 +155,7 @@ Il 28/09 (nuova versione):
   npm crea `opencode.ps1`, che PowerShell preferisce al `.cmd`, e il criterio di esecuzione predefinito lo blocca.
   → Lo script mette la cartella dell'`opencode.exe` **in testa al PATH utente**, prima di `%APPDATA%\npm`.
   Così anche VS Code aperto dal menu Start trova l'`.exe` (verificato con gli script bloccati).
-  Eccezione: se npm è nel PATH *di sistema* (come sul PC di Giovanni) vince comunque il `.ps1`; lì
+  Eccezione: se npm è nel PATH *di sistema* (come sul PC che costruisce la chiavetta) vince comunque il `.ps1`; lì
   aiutano il collegamento e l'ExecutionPolicy. → Lo script imposta anche `RemoteSigned` per CurrentUser. Se i criteri della scuola lo impediscono, usare `opencode.cmd`,
   oppure Herdr/Git Bash, oppure l'`opencode.exe` della chiavetta (è un .exe, quindi non viene bloccato).
 - **Installazione npm di opencode lenta** (~180 MB, sembrava bloccata perché l'output era nascosto) → ora opencode
