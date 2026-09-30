@@ -1,0 +1,92 @@
+========================================================================
+  LEZIONE DI IA - COME COLLEGARE OPENCODE A UN MODELLO GRATUITO
+========================================================================
+
+Che cos'e' opencode?
+  E' un "assistente programmatore" che vive nel terminale (Git Bash).
+  Per rispondere ha bisogno di collegarsi a un modello di IA. Noi usiamo
+  Google Gemini, che ha un piano GRATUITO piu' che sufficiente per oggi.
+
+  IMPORTANTE: ognuno usa la PROPRIA chiave. I limiti gratuiti sono per
+  chiave, quindi se ciascuno ha la sua non ci blocchiamo a vicenda.
+
+
+------------------------------------------------------------------------
+  PASSO 1 - Ottieni la tua chiave gratuita (2 minuti)
+------------------------------------------------------------------------
+  1. Apri il browser e vai su:   https://aistudio.google.com/apikey
+  2. Accedi con un account Google (NON serve la carta di credito).
+  3. Clicca "Create API key" / "Crea chiave API".
+  4. Copia la chiave (una lunga sequenza di lettere e numeri).
+     -> Tienila da parte: e' come una password, non condividerla.
+
+
+------------------------------------------------------------------------
+  PASSO 2 - Collega la chiave a opencode
+------------------------------------------------------------------------
+  Se l'installatore te l'ha gia' chiesto, hai gia' finito. Altrimenti:
+
+  1. Apri la cartella  Documenti\lezioni-AI  e usa UNO dei collegamenti:
+       - "Herdr"               -> si apre il terminale gia' pronto, oppure
+       - "Visual Studio Code"  -> poi menu Terminale > Nuovo terminale.
+     IMPORTANTE: apri sempre da questi collegamenti (NON cercare
+     "Git Bash" nel menu Start): sono loro a far trovare opencode.
+  2. Scrivi questo comando e premi Invio:
+
+         opencode auth login --provider google
+
+  3. Se chiede il METODO, scegli   "API Key".
+  4. Incolla la chiave (nel terminale: tasto destro = incolla, oppure
+     Ctrl+V in VS Code) e premi Invio.
+  5. Fatto: appare "logged in" / la chiave viene salvata.
+
+  Per controllare quando vuoi cosa e' configurato:
+
+         opencode auth list
+
+
+------------------------------------------------------------------------
+  PASSO 3 - Inizia a usarlo
+------------------------------------------------------------------------
+  1. Dai collegamenti sei gia' nella cartella  progetti. Avvia:
+
+         opencode
+
+  2. Con il comando  /models  scegli un modello Gemini (es. "gemini flash").
+  3. Scrivi cosa vuoi fare e premi Invio. Buon lavoro!
+
+
+------------------------------------------------------------------------
+  SE UN MODELLO E' LENTO O DICE "LIMITE RAGGIUNTO"
+------------------------------------------------------------------------
+  * Dentro opencode digita  /models  e passa a un altro modello Gemini
+    gratuito (di solito basta questo).
+
+  * Oppure aggiungi un SECONDO provider gratuito come riserva. Prendi una
+    chiave gratuita da uno di questi e collegala come nel Passo 2,
+    cambiando solo il nome del provider:
+
+       - OpenRouter (tanti modelli):  https://openrouter.ai/keys
+             opencode auth login --provider openrouter
+       - Groq (velocissimo):          https://console.groq.com/keys
+             opencode auth login --provider groq
+
+    Poi, dentro opencode, con  /models  scegli il nuovo modello.
+
+
+------------------------------------------------------------------------
+  COMANDI UTILI (promemoria)
+------------------------------------------------------------------------
+  opencode                          avvia l'assistente
+  opencode auth login --provider google   collega la chiave Gemini
+  opencode auth list                mostra le chiavi configurate
+  /models      (dentro opencode)    cambia modello
+  /help        (dentro opencode)    elenco dei comandi
+
+  Se il terminale dice "opencode: command not found" / "non riconosciuto":
+  chiudilo e riaprilo dal collegamento in Documenti\lezioni-AI.
+
+  Se PowerShell dice "L'esecuzione di script e' disabilitata":
+  scrivi  opencode.cmd  al posto di  opencode  (oppure usa Herdr).
+
+========================================================================

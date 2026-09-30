@@ -1,0 +1,24 @@
+# Binari di terze parti: NON vanno nel repo (troppo grandi e ridistribuibili a parte).
+# Scaricali con setup/Scarica-Binari.ps1
+*.zip
+*.7z
+*.7z.exe
+*.exe
+!AVVIA-Setup.cmd
+
+# Cartelle generate dallo script sui PC / chiavetta
+strumenti/
+vscode/
+herdr/
+progetti/
+data/
+
+# Log e credenziali (MAI nel repo)
+setup-log.txt
+auth.json
+*.log
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store

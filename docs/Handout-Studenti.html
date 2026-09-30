@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>opencode + Gemini — Guida rapida</title>
+<style>
+  :root{
+    --paper:#faf9f6;
+    --ink:#1b211d;
+    --muted:#5c665f;
+    --line:#dcdcd3;
+    --accent:#0f766e;         /* teal terminale */
+    --accent-soft:#e6f1ef;
+    --term-bg:#12211d;         /* fondo "terminale" per i comandi */
+    --term-ink:#eaf3ef;
+    --warn:#9a5b16;
+    --warn-soft:#f6ecdd;
+    --font: -apple-system, "Segoe UI", Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", "Liberation Mono", Menlo, monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font);
+    font-size:11.2pt;
+    line-height:1.42;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:210mm;
+    margin:0 auto;
+    padding:16px 20px 22px;
+  }
+
+  /* Barra schermo (nascosta in stampa) */
+  .toolbar{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    max-width:210mm; margin:0 auto; padding:10px 20px 0;
+  }
+  .toolbar p{margin:0; color:var(--muted); font-size:10pt;}
+  .btn{
+    font:inherit; font-weight:600; font-size:10.5pt;
+    color:#fff; background:var(--accent); border:0; border-radius:8px;
+    padding:9px 16px; cursor:pointer;
+  }
+  .btn:hover{background:#0b5a54;}
+  .btn:focus-visible{outline:3px solid var(--accent-soft); outline-offset:2px;}
+
+  header.head{
+    display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:10px; margin-bottom:14px;
+  }
+  header.head h1{
+    font-size:22pt; line-height:1.05; margin:0; letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  header.head h1 .mono{font-family:var(--mono); color:var(--accent); font-weight:700;}
+  header.head .sub{color:var(--muted); font-size:11pt; margin:0;}
+  .lead{
+    margin:0 0 16px; padding:10px 14px;
+    background:var(--accent-soft); border-radius:8px;
+    font-size:10.6pt;
+  }
+  .lead b{color:var(--accent);}
+
+  .steps{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px 20px;
+    margin-bottom:16px;
+  }
+  .step{border-top:1px solid var(--line); padding-top:9px;}
+  .step h2{
+    display:flex; align-items:center; gap:9px;
+    font-size:12.5pt; margin:0 0 6px;
+  }
+  .num{
+    flex:0 0 auto;
+    width:24px; height:24px; border-radius:50%;
+    background:var(--accent); color:#fff;
+    display:grid; place-items:center;
+    font-size:12pt; font-weight:700; font-family:var(--mono);
+  }
+  .step ol, .step ul{margin:6px 0 0; padding-left:18px;}
+  .step li{margin:3px 0;}
+  .step p{margin:6px 0 0;}
+
+  code, .cmd{font-family:var(--mono);}
+  .cmd{
+    display:block;
+    background:var(--term-bg); color:var(--term-ink);
+    border-radius:7px; padding:7px 10px; margin:6px 0;
+    font-size:10pt; white-space:pre-wrap; word-break:break-word;
+  }
+  .cmd .prompt{color:#5fd0b6;}
+  code.inline{
+    background:#eef0ec; border:1px solid var(--line);
+    border-radius:5px; padding:1px 5px; font-size:9.6pt;
+  }
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid #a7cec8;}
+  .url{font-family:var(--mono); font-size:9.8pt; word-break:break-all;}
+
+  .callout{
+    border:1px solid #e6d6bc; background:var(--warn-soft);
+    border-left:4px solid var(--warn);
+    border-radius:8px; padding:10px 14px; margin-bottom:16px;
+  }
+  .callout h3{margin:0 0 4px; font-size:11.5pt; color:var(--warn);}
+  .callout p{margin:4px 0;}
+  .callout ul{margin:4px 0 0; padding-left:18px;}
+
+  .cheat h3{
+    font-size:9.5pt; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--muted); margin:0 0 6px;
+  }
+  table.cheat-tbl{width:100%; border-collapse:collapse; font-size:10pt;}
+  table.cheat-tbl td{border-top:1px solid var(--line); padding:5px 8px; vertical-align:top;}
+  table.cheat-tbl td:first-child{
+    font-family:var(--mono); color:var(--accent);
+    white-space:nowrap; width:1%; padding-right:16px;
+  }
+  footer.foot{
+    margin-top:16px; padding-top:8px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:9pt;
+    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+
+  @media (max-width:640px){
+    .steps{grid-template-columns:1fr;}
+    header.head h1{font-size:19pt;}
+  }
+
+  @media print{
+    @page{ size:A4; margin:12mm; }
+    body{background:#fff; font-size:10.4pt;}
+    .toolbar{display:none;}
+    .sheet{padding:0; max-width:none;}
+    .cmd{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    a{color:var(--ink); border:0;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <p>Suggerimento: stampa in A4 o salva come PDF. Sta in una pagina.</p>
+    <button class="btn" onclick="window.print()">Stampa / Salva PDF</button>
+  </div>
+
+  <div class="sheet">
+    <header class="head">
+      <h1><span class="mono">opencode</span> + Gemini</h1>
+      <p class="sub">Guida rapida — Lezione di IA</p>
+    </header>
+
+    <p class="lead">
+      <b>opencode</b> è un assistente che programma con te, dentro il terminale. Per rispondere si collega
+      a un modello di IA: useremo <b>Google Gemini</b>, che ha un piano gratuito.
+      <b>Ognuno usa la propria chiave</b>: i limiti gratuiti valgono per chiave, quindi così non ci blocchiamo a vicenda.
+    </p>
+
+    <div class="steps">
+      <section class="step">
+        <h2><span class="num">1</span> Prendi la chiave (gratis)</h2>
+        <ol>
+          <li>Apri <span class="url">aistudio.google.com/apikey</span></li>
+          <li>Accedi con un account Google — <b>non serve la carta</b>.</li>
+          <li>Premi <b>Create API key</b>.</li>
+          <li>Copia la chiave e tienila da parte: è come una password.</li>
+        </ol>
+      </section>
+
+      <section class="step">
+        <h2><span class="num">2</span> Collega la chiave</h2>
+        <p style="margin-top:0;">Se l'installatore te l'ha già chiesto, sei a posto. Altrimenti apri <b>Herdr</b> (o il terminale di VS Code) dai collegamenti in <code class="inline">Documenti\lezioni-AI</code>:</p>
+        <span class="cmd"><span class="prompt">$</span> opencode auth login --provider google</span>
+        <ul>
+          <li>Se chiede il metodo, scegli <b>API Key</b>.</li>
+          <li>Incolla la chiave (tasto destro = incolla) e premi Invio.</li>
+        </ul>
+      </section>
+
+      <section class="step">
+        <h2><span class="num">3</span> Inizia a usarlo</h2>
+        <p style="margin-top:0;">Entra nella cartella <code class="inline">progetti</code> e avvia:</p>
+        <span class="cmd"><span class="prompt">$</span> opencode</span>
+        <ul>
+          <li>Con <code class="inline">/models</code> scegli un modello Gemini (es. <i>flash</i>).</li>
+          <li>Scrivi cosa vuoi fare e premi Invio.</li>
+        </ul>
+      </section>
+
+      <section class="step">
+        <h2><span class="num">4</span> Controlla l'accesso</h2>
+        <p style="margin-top:0;">Per vedere quali chiavi sono configurate:</p>
+        <span class="cmd"><span class="prompt">$</span> opencode auth list</span>
+        <p>Deve comparire <b>Google</b>. Se non c'è, ripeti il Passo 2.</p>
+      </section>
+    </div>
+
+    <div class="callout">
+      <h3>Se un modello è lento o dice “limite raggiunto”</h3>
+      <p>Dentro opencode digita <code class="inline">/models</code> e passa a un altro modello Gemini gratuito. Di solito basta questo.</p>
+      <p style="margin-bottom:2px;">Oppure aggiungi un <b>secondo provider gratuito</b> come riserva (stessa procedura del Passo 2, cambia solo il nome):</p>
+      <ul>
+        <li><b>OpenRouter</b> — <span class="url">openrouter.ai/keys</span> → <code class="inline">opencode auth login --provider openrouter</code></li>
+        <li><b>Groq</b> (velocissimo) — <span class="url">console.groq.com/keys</span> → <code class="inline">opencode auth login --provider groq</code></li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h3>Comandi utili</h3>
+      <table class="cheat-tbl">
+        <tr><td>opencode</td><td>avvia l'assistente nella cartella corrente</td></tr>
+        <tr><td>opencode auth login --provider google</td><td>collega la chiave Gemini</td></tr>
+        <tr><td>opencode auth list</td><td>mostra le chiavi configurate</td></tr>
+        <tr><td>/models</td><td>(dentro opencode) cambia modello</td></tr>
+        <tr><td>/help</td><td>(dentro opencode) elenco dei comandi</td></tr>
+      </table>
+    </div>
+
+    <footer class="foot">
+      <span>Lezione di IA · opencode + Gemini</span>
+      <span>La chiave è personale: non condividerla.</span>
+    </footer>
+  </div>
+
+</body>
+</html>
