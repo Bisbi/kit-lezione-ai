@@ -11,6 +11,9 @@
 - **✅ Test in aula superato:** l'intera classe ha usato la chiavetta con successo (script no-admin).
 - **Pubblicato come repo:** questo documento vive ora anche in un repo pubblico con gli script e i materiali.
   I binari non sono nel repo: si scaricano con `setup/Scarica-Binari.ps1` dalle fonti ufficiali.
+- **✅ Skill opencode "gestione del contesto":** prompt d'installazione pronto in
+  `docs/INSTALLA-skill-famiglia-contesto.md` (linkato dal README). Da incollare in opencode per
+  installare le 3 skill collegate (`gestione-contesto`, `nuovo-progetto`, `handoff`).
 - **Arricchimenti proposti (da fare):** progetto starter + esercizi in `progetti\`; `AGENTS.md` per far
   rispondere opencode in italiano; paletti di sicurezza all'agente (conferma comandi, telemetria off);
   `VERIFICA.cmd` e `RIMUOVI-Lezione-AI.cmd`; `git init` in `progetti\`.
